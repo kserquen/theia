@@ -19,6 +19,8 @@ import { existsSync, readFileSync } from 'fs';
 
 export class FrontendGenerator extends AbstractGenerator {
 
+    var host = 'http://192.168.1.117:4001';
+
     async generate(): Promise<void> {
         const frontendModules = this.pck.targetFrontendModules;
         await this.write(this.pck.frontend('index.html'), this.compileIndexHtml(frontendModules));
@@ -68,9 +70,32 @@ export class FrontendGenerator extends AbstractGenerator {
 <html>
 
 <head>${this.compileIndexHead(frontendModules)}
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
   <script type="text/javascript" charset="utf-8">
   function login() {
-    alert('holi kwn!');
+    console.log("\n\n>>login.");
+    var params = {
+        username: $('#username').val(),
+        password: $('#password').val(),
+        id: 'kwn',
+    };
+    $.ajax({
+        url: ${this.host}'/loginAccessTheia',
+        type: 'POST',
+        dataType: 'json',
+        data: params,
+        headers: {},
+        success: function(res) {
+            console.log('success');
+            console.log(res);
+            if (!res.error) {
+                if (res.data.found) {
+                    window.localStorage.setItem('token', res.data.token);
+                    window.location = 'index.php';
+                }
+            }
+        }
+    });
   }
   </script>
 </head>
@@ -78,7 +103,7 @@ export class FrontendGenerator extends AbstractGenerator {
 <body>
   <input type="text" id="username" placeholder="Username"><br>
   <input type="text" id="password" placeholder="Password"><br>
-  <input type="button" id="login" onclick="login()">
+  <input type="button" id="login" value="login" onclick="login()">
 </body>
 
 </html>`;
@@ -120,8 +145,16 @@ function start() {
 
     console.log('Init');
     console.log(new Date());
-    if (window.localStorage.getItem('username') == 'kwn' && window.localStorage.getItem('password') == 'kewin') {
-        timeout(3000).then(function(data) {
+    var token = window.localStorage.getItem('token');
+    if (typeof token !== 'undefined') {
+        request({url: ${this.host}"/accessTheia", from: {token}, method: 'POST'}, function (error, response, data) {
+            if (error) {
+                console.log('Marcar error');
+                window.location.href = 'login.html';
+            }
+            if (!data.data.found) {
+                window.location.href = 'login.html';
+            }
             console.log('End');
             console.log(new Date());
             const application = container.get(FrontendApplication);
