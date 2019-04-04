@@ -38,6 +38,7 @@
     "react-virtualized": "^9.20.0",
     "reconnecting-websocket": "^3.0.7",
     "reflect-metadata": "^0.1.10",
+    "request": "^2.88.0",
     "route-parser": "^0.0.5",
     "vscode-languageserver-types": "^3.10.0",
     "vscode-uri": "^1.0.1",
