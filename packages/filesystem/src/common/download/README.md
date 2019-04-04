@@ -11,7 +11,7 @@ Supports single and multi file downloads.
 ### REST API
 
  - To download a single file or folder use the following endpoint: `GET /files/?uri=/encoded/file/uri/to/the/resource`.
-   - Example: `curl -X GET http://localhost:3000/files/?uri=file:///Users/akos.kitta/git/theia/package.json`.
+   - Example: `curl -X GET http://localhost:3334/files/?uri=file:///Users/akos.kitta/git/theia/package.json`.
 
  - To download multiple files (from the same folder) use the `PUT /files/` endpoint with the `application/json` content type header and the following body format:
     ```json
@@ -23,7 +23,7 @@ Supports single and multi file downloads.
     }
     ```
    ```
-   curl -X PUT -H "Content-Type: application/json" -d '{ "uris": ["file:///Users/akos.kitta/git/theia/package.json", "file:///Users/akos.kitta/git/theia/README.md"] }' http://localhost:3000/files/
+   curl -X PUT -H "Content-Type: application/json" -d '{ "uris": ["file:///Users/akos.kitta/git/theia/package.json", "file:///Users/akos.kitta/git/theia/README.md"] }' http://localhost:3334/files/
    ```
 
 ## License

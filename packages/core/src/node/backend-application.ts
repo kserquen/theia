@@ -38,7 +38,7 @@ export interface BackendApplicationContribution {
     onStop?(app?: express.Application): void;
 }
 
-const defaultPort = environment.electron.is() ? 0 : 3000;
+const defaultPort = environment.electron.is() ? 0 : 3334;
 const defaultHost = 'localhost';
 const defaultSSL = false;
 

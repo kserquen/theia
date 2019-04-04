@@ -218,7 +218,7 @@ Or it is possible to get a map of all query parameters:
 theia.env.getQueryParameters();
 ```
 
-Note, that it is possible to have an array of values for single name, because it could be specified more than one time (for example `localhost:3000?foo=bar&foo=baz`).
+Note, that it is possible to have an array of values for single name, because it could be specified more than one time (for example `localhost:3334?foo=bar&foo=baz`).
 
 ### Terminal
 

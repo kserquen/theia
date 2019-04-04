@@ -86,7 +86,7 @@ To run the backend server:
 
     theia start
 
-For the browser target a server is started on http://localhost:3000 by default.
+For the browser target a server is started on http://localhost:3334 by default.
 For the electron target a server is started on `localhost` host with the dynamically allocated port by default.
 
 Arguments are passed directly to a server, use `--help` to learn which options are supported.

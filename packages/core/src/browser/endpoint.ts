@@ -60,7 +60,7 @@ export class Endpoint {
     }
 
     protected get port(): string {
-        return this.getSearchParam('port', '3000');
+        return this.getSearchParam('port', '3334');
     }
 
     protected getSearchParam(name: string, defaultValue: string): string {

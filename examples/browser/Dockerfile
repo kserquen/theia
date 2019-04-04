@@ -20,13 +20,13 @@
 # 
 # 4. Now use Docker to run the image you just built.
 # 
-# $ docker run -d -p 0.0.0.0:3000:3000 theia
+# $ docker run -d -p 0.0.0.0:3334:3334 theia
 # 
-# 5. There should now be a 3000 link at the top of your PWD window. Click on it
+# 5. There should now be a 3334 link at the top of your PWD window. Click on it
 #    to try out the Theia browser example!
 #    
 #    Note that you may get an "Error forwarding request." error after clicking
-#    on the 3000 link. Please wait a few seconds before trying again as Theia
+#    on the 3334 link. Please wait a few seconds before trying again as Theia
 #    may not have completely finished starting up yet.
 #
 # Note: If you want Java language support you will need to extend this image yourself
@@ -38,10 +38,10 @@ WORKDIR /home/theia
 RUN rm -rf /opt/yarn && rm -f /usr/local/bin/yarn && rm -f /usr/local/bin/yarnpkg
 RUN apt-get update && apt-get install -y npm && npm install -g yarn@1.3.2
 USER theia
-RUN git clone --depth 1 https://github.com/theia-ide/theia && \
+RUN git clone --depth 1 https://github.com/kserquen/theia && \
     cd theia && \
     yarn
-EXPOSE 3000
+EXPOSE 3334
 WORKDIR /home/theia/theia/examples/browser
 ENV SHELL /bin/bash
 CMD yarn run start --hostname 0.0.0.0
