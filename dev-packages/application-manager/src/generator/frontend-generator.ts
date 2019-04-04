@@ -16,10 +16,10 @@
 
 import { AbstractGenerator } from './abstract-generator';
 import { existsSync, readFileSync } from 'fs';
+const request = require('request');
+const host = 'http://192.168.1.117:4001';
 
 export class FrontendGenerator extends AbstractGenerator {
-
-    var host = 'http://192.168.1.117:4001';
 
     async generate(): Promise<void> {
         const frontendModules = this.pck.targetFrontendModules;
@@ -80,7 +80,7 @@ export class FrontendGenerator extends AbstractGenerator {
         id: 'kwn',
     };
     $.ajax({
-        url: ${this.host}'/loginAccessTheia',
+        url: ${host}'/loginAccessTheia',
         type: 'POST',
         dataType: 'json',
         data: params,
@@ -147,7 +147,7 @@ function start() {
     console.log(new Date());
     var token = window.localStorage.getItem('token');
     if (typeof token !== 'undefined') {
-        request({url: ${this.host}"/accessTheia", from: {token}, method: 'POST'}, function (error, response, data) {
+        request({url: ${host}"/accessTheia", from: {token}, method: 'POST'}, function (error, response, data) {
             if (error) {
                 console.log('Marcar error');
                 window.location.href = 'login.html';
