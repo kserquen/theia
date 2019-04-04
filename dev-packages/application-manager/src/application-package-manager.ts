@@ -62,6 +62,7 @@ export class ApplicationPackageManager {
     async copy(): Promise<void> {
         await fs.ensureDir(this.pck.lib());
         await fs.copy(this.pck.frontend('index.html'), this.pck.lib('index.html'));
+        await fs.copy(this.pck.frontend('login.html'), this.pck.lib('login.html'));
     }
 
     async build(args: string[] = []): Promise<void> {

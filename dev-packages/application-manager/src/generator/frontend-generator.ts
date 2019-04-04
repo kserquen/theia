@@ -23,6 +23,7 @@ export class FrontendGenerator extends AbstractGenerator {
         const frontendModules = this.pck.targetFrontendModules;
         await this.write(this.pck.frontend('index.html'), this.compileIndexHtml(frontendModules));
         await this.write(this.pck.frontend('index.js'), this.compileIndexJs(frontendModules));
+        await this.write(this.pck.frontend('login.html'), this.compileLoginHtml(frontendModules));
         if (this.pck.isElectron()) {
             await this.write(this.pck.frontend('electron-main.js'), this.compileElectronMain());
         }
@@ -57,6 +58,27 @@ export class FrontendGenerator extends AbstractGenerator {
 
 <body onload="init()">
   <div class="theia-preload">${this.compileIndexPreload(frontendModules)}</div>
+</body>
+
+</html>`;
+    }
+
+    protected compileLoginHtml(frontendModules: Map<string, string>): string {
+        return `<!DOCTYPE html>
+<html>
+
+<head>${this.compileIndexHead(frontendModules)}
+  <script type="text/javascript" charset="utf-8">
+  function login() {
+    alert('holi kwn!');
+  }
+  </script>
+</head>
+
+<body>
+  <input type="text" id="username" placeholder="Username"><br>
+  <input type="text" id="password" placeholder="Password"><br>
+  <input type="button" id="login" onclick="login()">
 </body>
 
 </html>`;
@@ -98,12 +120,16 @@ function start() {
 
     console.log('Init');
     console.log(new Date());
-    timeout(3000).then(function(data) {
-        console.log('End');
-        console.log(new Date());
-        const application = container.get(FrontendApplication);
-        application.start();
-    });
+    if (window.localStorage.getItem('username') == 'kwn' && window.localStorage.getItem('password') == 'kewin') {
+        timeout(3000).then(function(data) {
+            console.log('End');
+            console.log(new Date());
+            const application = container.get(FrontendApplication);
+            application.start();
+        });
+    } else {
+        window.location.href = 'login.html';
+    }
 }
 
 function timeout(ms) {
@@ -302,5 +328,4 @@ if (isMaster) {
 }
 `;
     }
-
 }
