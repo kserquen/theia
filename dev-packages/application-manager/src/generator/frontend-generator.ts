@@ -96,8 +96,18 @@ function start() {
     const themeService = ThemeService.get();
     themeService.loadUserTheme();
 
-    const application = container.get(FrontendApplication);
-    application.start();
+    console.log('Init');
+    console.log(new Date());
+    timeout(3000).then(function(data) {
+        console.log('End');
+        console.log(new Date());
+        const application = container.get(FrontendApplication);
+        application.start();
+    });
+}
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = Promise.resolve()${this.compileFrontendModuleImports(frontendModules)}
