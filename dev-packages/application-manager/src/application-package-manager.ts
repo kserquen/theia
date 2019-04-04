@@ -99,5 +99,4 @@ export class ApplicationPackageManager {
         }
         this.__process.fork(this.pck.backend('main.js'), mainArgs, options);
     }
-
 }

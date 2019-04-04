@@ -87,5 +87,4 @@ address.then(function (address) {
 module.exports = address;
 `;
     }
-
 }
