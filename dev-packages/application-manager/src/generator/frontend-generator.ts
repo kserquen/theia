@@ -16,7 +16,6 @@
 
 import { AbstractGenerator } from './abstract-generator';
 import { existsSync, readFileSync } from 'fs';
-
 const host = 'http://192.168.1.117:4001';
 
 export class FrontendGenerator extends AbstractGenerator {
