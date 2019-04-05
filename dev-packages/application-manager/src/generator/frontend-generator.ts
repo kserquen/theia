@@ -142,7 +142,7 @@ function start() {
     const themeService = ThemeService.get();
     themeService.loadUserTheme();
 
-    console.log('Init');
+    console.log('Init Host: '+${host});
     console.log(new Date());
     var token = window.localStorage.getItem('token');
     if (typeof token !== 'undefined') {
