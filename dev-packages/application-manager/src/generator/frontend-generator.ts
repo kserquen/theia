@@ -146,8 +146,8 @@ function start() {
     console.log(new Date());
     var token = window.localStorage.getItem('token');
     if (typeof token !== 'undefined') {
-        httpCall('POST', host+"/accessTheia", {token}, function(data) {
-        //postAjax(host+"/accessTheia", 'token='+token, function(data) {
+        //httpCall('POST', host+"/accessTheia", {token}, function(data) {
+        postAjax(host+"/accessTheia", 'token='+token, function(data) {
         //timeout(2000).then(function(data) {
             console.log(data);
             console.log('End');
