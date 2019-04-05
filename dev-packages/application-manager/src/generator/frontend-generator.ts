@@ -146,8 +146,9 @@ function start() {
     console.log(new Date());
     var token = window.localStorage.getItem('token');
     if (typeof token !== 'undefined') {
+        httpCall('POST', ${host}"/accessTheia", {token}, function(data) {
         //postAjax(${host}"/accessTheia", 'token='+token, function(data) {
-        timeout(2000).then(function(data) {
+        //timeout(2000).then(function(data) {
             console.log(data);
             console.log('End');
             console.log(new Date());
@@ -177,6 +178,17 @@ function postAjax(url, data, success) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(params);
     return xhr;
+}
+
+function httpCall(method: string, url:string, data:any, callback:(result:any)=>any) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    if (callback) xhr.onload = function() { callback(JSON.parse(this['responseText'])); };
+    if (data != null) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data));
+    }
+    else xhr.send();
 }
 
 module.exports = Promise.resolve()${this.compileFrontendModuleImports(frontendModules)}
