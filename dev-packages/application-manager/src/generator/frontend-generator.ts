@@ -150,18 +150,13 @@ function start() {
     console.log(new Date());
     var token = window.localStorage.getItem('token');
     if (typeof token !== 'undefined') {
-        request({url: ${host}"/accessTheia", from: {token}, method: 'POST'}, function (error, response, data) {
-            if (error) {
-                console.log('Marcar error');
-                window.location.href = 'login.html';
-            }
-            if (!data.data.found) {
-                window.location.href = 'login.html';
-            }
+
+        postAjax(${host}"/accessTheia", 'token='+token, function(data) { 
+            console.log(data);
             console.log('End');
             console.log(new Date());
-            const application = container.get(FrontendApplication);
-            application.start();
+            /*const application = container.get(FrontendApplication);
+            application.start();*/
         });
     } else {
         window.location.href = 'login.html';
@@ -170,6 +165,22 @@ function start() {
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function postAjax(url, data, success) {
+    var params = typeof data == 'string' ? data : Object.keys(data).map(
+            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+        ).join('&');
+
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.open('POST', url);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState>3 && xhr.status==200) { success(xhr.responseText); }
+    };
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(params);
+    return xhr;
 }
 
 module.exports = Promise.resolve()${this.compileFrontendModuleImports(frontendModules)}
